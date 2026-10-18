@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>وب‌سایت شخصی پرهام خلجی</title>
+    <!-- لود فونت زیبای فارسی وزیرمتن -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+        }
+
+        body {
+            background-color: #030308;
+            color: #ffffff;
+            min-height: 100vh;
+            min-height: 100dvh; /* هماهنگی کامل با مرورگرهای موبایل */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            overflow-y: auto; /* فعال بودن اسکرول عمودی در صورت کوچک بودن صفحه */
+            position: relative;
+            padding: 24px 16px;
+        }
+
+        /* ۱. نگهدارنده نورهای پس‌زمینه (بدون ایجاد اسکرول اضافی در موبایل) */
+        .bg-container {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: clamp(250px, 50vw, 500px);
+            height: clamp(250px, 50vw, 500px);
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            animation: moveGlow 12s ease-in-out infinite alternate;
+        }
+        .glow-1 {
+            background: linear-gradient(135deg, #ff007f, #7a00ff);
+            top: -10%;
+            right: -10%;
+        }
+        .glow-2 {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            bottom: -10%;
+            left: -10%;
+            animation-delay: -6s;
+        }
+        @keyframes moveGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -30px) scale(1.15); }
+            100% { transform: translate(-30px, 40px) scale(0.95); }
+        }
+
+        /* ۲. انیمیشن چرخش طیف رنگی RGB */
+        @keyframes rgb-rotation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ۳. فریم (Border) دور کارت با درخشش RGB نئونی */
+        .rgb-border {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            padding: 3px;
+            border-radius: 28px;
+            background: linear-gradient(45deg, #ff0055, #7a00ff, #00f2fe, #48ff00, #ff0055);
+            background-size: 300% 300%;
+            animation: rgb-rotation 6s ease infinite;
+            box-shadow: 0 0 35px rgba(122, 0, 255, 0.4);
+        }
+
+        /* ۴. بدنه اصلی کارت شیشه‌ای تیره */
+        .card-body {
+            background: rgba(13, 11, 26, 0.8);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        /* ۵. آواتار راکت با حلقه RGB */
+        .avatar-glow {
+            width: 105px;
+            height: 105px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(45deg, #ff0055, #00ffd5, #7a00ff);
+            background-size: 200% 200%;
+            animation: rgb-rotation 4s linear infinite;
+            box-shadow: 0 0 25px rgba(0, 255, 213, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar-bg {
+            width: 100%;
+            height: 100%;
+            background: #090710;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 42px;
+        }
+
+        /* ۶. نام پرهام خلجی با سایز فونت داینامیک (ریسپانسیو) */
+        h1 {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 8px;
+            color: #ffffff;
+            background: linear-gradient(90deg, #ff0080, #00ffd5, #7a00ff, #ff0080);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rgb-rotation 5s linear infinite;
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.9));
+        }
+
+        /* ۷. زیرعنوان */
+        .subtitle {
+            font-size: clamp(0.92rem, 3.5vw, 1.1rem);
+            color: #00ffd5;
+            font-weight: 700;
+            margin-bottom: 22px;
+            text-shadow: 0 0 10px rgba(0, 255, 213, 0.6);
+        }
+
+        /* ۸. باکس تیره برای توضیحات */
+        p.desc {
+            color: #f1f1f5;
+            font-size: clamp(0.88rem, 3vw, 1rem);
+            line-height: 1.85;
+            background: rgba(4, 3, 8, 0.65);
+            border: 1px solid rgba(122, 0, 255, 0.3);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            text-align: justify;
+            text-align-last: center;
+        }
+
+        /* ۹. تگ‌های مهارت RGB */
+        .skills-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        .skill {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px dashed rgba(0, 255, 213, 0.55);
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 8px rgba(0, 255, 213, 0.1);
+        }
+        .skill:hover {
+            border-style: solid;
+            box-shadow: 0 0 15px rgba(0, 255, 213, 0.5);
+            transform: translateY(-3px);
+            background: rgba(0, 255, 213, 0.15);
+        }
+
+        /* ۱۰. دکمه اصلی */
+        .btn-rgb-action {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 800;
+            padding: 14px 40px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #ff0055, #7a00ff, #00f2fe, #ff0055);
+            background-size: 200% auto;
+            animation: rgb-rotation 4s linear infinite;
+            box-shadow: 0 4px 20px rgba(255, 0, 85, 0.6);
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .btn-rgb-action:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.8);
+            border-color: #ffffff;
+        }
+
+        /* ۱۱. فوتر */
+        .credits {
+            margin-top: 28px;
+            font-size: 0.8rem;
+            color: #9ca3af;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 15px;
+        }
+
+        /* =========================================
+           تنظیمات ریسپانسیو برای موبایل و تبلت
+           ========================================= */
+        
+        /* برای گوشی‌های معمولی (عرض کمتر از 480 پیکسل) */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px;
+            }
+            .rgb-border {
+                border-radius: 22px;
+            }
+            .card-body {
+                padding: 28px 18px;
+                border-radius: 19px;
+            }
+            .avatar-glow {
+                width: 85px;
+                height: 85px;
+                margin-bottom: 14px;
+            }
+            .avatar-bg {
+                font-size: 34px;
+            }
+            p.desc {
+                padding: 14px;
+                margin-bottom: 20px;
+                line-height: 1.75;
+            }
+            /* چیدمان دو ستونه منظم برای مهارت‌ها در موبایل */
+            .skills-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-bottom: 22px;
+            }
+            .skill {
+                padding: 8px 6px;
+                font-size: 0.78rem;
+                text-align: center;
+                white-space: nowrap;
+            }
+            /* دکمه تمام‌عرض برای راحتی لمس با انگشت در موبایل */
+            .btn-rgb-action {
+                display: block;
+                width: 100%;
+                padding: 13px 20px;
+                font-size: 1rem;
+            }
+            .credits {
+                margin-top: 22px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* برای گوشی‌های خیلی کوچک (مثل آیفون SE) */
+        @media (max-width: 350px) {
+            .skills-container {
+                grid-template-columns: 1fr; /* یک ستونه شدن در صفحات خیلی باریک */
+            }
+        }
+
+        /* برای زمانی که گوشی به صورت افقی (Landscape) چرخانده می‌شود */
+        @media (max-height: 650px) {
+            body {
+                align-items: flex-start;
+                padding: 20px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- افکت‌های نوری پس‌زمینه (فیکس شده برای جلوگیری از به‌هم‌ریختگی در موبایل) -->
+    <div class="bg-container">
+        <div class="bg-glow glow-1"></div>
+        <div class="bg-glow glow-2"></div>
+    </div>
+
+    <!-- کارت اصلی با حاشیه و درخشش RGB -->
+    <div class="rgb-border">
+        <div class="card-body">
+            
+            <!-- آواتار متحرک -->
+            <div class="avatar-glow">
+                <div class="avatar-bg">🚀</div>
+            </div>
+            
+            <!-- نام و زیرعنوان -->
+            <h1>پرهام خلجی</h1>
+            <div class="subtitle">توسعه‌دهنده وب و علاقه‌مند به تکنولوژی</div>
+            
+            <!-- باکس متن تیره جهت ایجاد کنتراست بالا -->
+            <p class="desc">
+                سلام! به وب‌سایت شخصی من خوش آمدید. این پروژه با استفاده از HTML و CSS مدرن و با افکت‌های نوری RGB طراحی شده و بر روی سرویس‌های GitHub و Netlify منتشر گردیده است.
+            </p>
+
+            <!-- تگ‌های مهارتی شکیل -->
+            <div class="skills-container">
+                <span class="skill">💻 HTML5 & CSS3</span>
+                <span class="skill">🎨 طراحی مدرن RGB</span>
+                <span class="skill">⚡ GitHub</span>
+                <span class="skill">🌐 Netlify</span>
+            </div>
+
+            <!-- دکمه RGB -->
+            <a href="https://github.com" target="_blank" class="btn-rgb-action">مشاهده گیت‌هاب من</a>
+
+            <!-- فوتر -->
+            <div class="credits">
+                طراحی و توسعه با ❤️ توسط پرهام خلجی
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
